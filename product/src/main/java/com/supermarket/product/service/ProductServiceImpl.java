@@ -10,6 +10,7 @@ import org.springframework.data.redis.RedisConnectionFailureException;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -38,7 +39,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product queryByProductId(String productId) throws JsonProcessingException {
+    public Product queryByProductId(String productId) throws IOException {
         // TODO 使用redis缓存商品信息
         Boolean exits = null;
         try {
@@ -68,5 +69,10 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public void updateProduct(Product product) throws JsonProcessingException {
         this.productDao.updateProduct(product);
+    }
+
+    @Override
+    public List<Product> queryProducts() {
+        return this.productDao.selectProducts();
     }
 }

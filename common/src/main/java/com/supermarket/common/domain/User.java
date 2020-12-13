@@ -1,6 +1,8 @@
 package com.supermarket.common.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.Email;
@@ -11,6 +13,8 @@ import javax.validation.constraints.NotBlank;
  */
 @Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 	private String userId;
 
@@ -26,17 +30,13 @@ public class User {
 	@Email(message = "邮箱格式不对")
 	private String userEmail;
 
-	private Integer userType = 0;//默认都是0
-
-	public User() {
-	}
-
-	public User(String userId, String userName, String userPassword, String userNickname, String userEmail, Integer userType) {
-		this.userId = userId;
-		this.userName = userName;
-		this.userPassword = userPassword;
-		this.userNickname = userNickname;
-		this.userEmail = userEmail;
-		this.userType = userType;
-	}
+	/**
+	 * 0: 游客
+	 * 1: 买家
+	 * 2: 卖家
+	 * 3: 预留
+	 * 4: 管理员
+	 * 5: 根用户
+	 */
+	private Integer userType = 0;
 }

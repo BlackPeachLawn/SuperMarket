@@ -2,10 +2,15 @@
 <body>
 <h1>网上商城</h1>
 <h2>截图展示</h2>
-<img src="./img/index.png" alt="首页" /><br />
-<img src="./img/product.png" alt="商品页面" /><br />
-<img src="./img/regist.png" alt="注册页面" /><br />
-<img src="./img/login.png" alt="登录页面" /><br />
+<img src="./img/product.gif" alt="商品页面" /><br />
+<img src="./img/regist.gif" alt="注册页面" /><br />
+<img src="./img/login.gif" alt="登录页面" /><br />
+<img src="./img/cart.gif" alt="购物车" /><br />
+<img src="./img/order.gif" alt="订单" /><br />
+<img src="./img/search.gif" alt="检索" /><br />
+<img src="./img/manage_product.gif" alt="管理商品" /><br />
+<img src="./img/add_product.gif" alt="新增商品" /><br />
+<img src="./img/instantbuy.gif" alt="秒杀" /><br />
 <h2>声明</h2>
 <ul>
     <li>本项目静态资源由网络收集得来，并加以大范围修改</li>
@@ -16,57 +21,91 @@
 <h2>包结构说明</h2>
 <ul>
 <li>com.supermarket.*.filter对应于微服务的过滤器</li>
+<li>com.supermarket.*.listener对应于微服务的监听器</li>
 <li>com.supermarket.*.controller对应于微服务的controller层</li>
 <li>com.supermarket.*.aspect对应于微服务的切面类</li>
 <li>com.supermarket.*.service对应于微服务的service层</li>
-<li>com.supermarket.*.dao对应于微服务的dao层</li>
+<li>com.supermarket.*.dao对应于微服务的持久层</li>
+<li>com.supermarket.*.schedule对应于微服务的定时任务</li>
 <li>com.supermarket.*.exception对应于微服务的自定义异常</li>
 <li>com.supermarket.*.domain对应于微服务的JavaBean</li>
 <li>com.supermarket.*.utils对应于微服务的工具类</li>
 <li>com.supermarket.*.vo对应于微服务的ViewObject</li>
 </ul>
+<h2>系统架构</h2>
+<img src="./img/架构图.png" alt="架构图" />
 <h2>功能说明</h2>
 <h3>用户微服务(com.supermarket.user)</h3>
 <ul>
-<li>用户登录</li>
-<li>用户注册</li>
-<li>用户登出</li>
-<li>用户名可用性校验</li>
-<li>用户登录状态获取</li>
+    <li>用户登录</li>
+    <li>免验证码登录</li>
+    <li>用户注册</li>
+    <li>用户登出</li>
+    <li>用户名可用性校验</li>
+    <li>用户登录状态获取</li>
+    <li>查询用户权限等级</li>
 </ul>
 <h3>商品微服务(com.supermarket.product)</h3>
 <ul>
-<li>分页查询</li>
-<li>单个商品查询</li>
-<li>商品新增</li>
-<li>商品修改</li>
+    <li>分页查询</li>
+    <li>单个商品查询</li>
+    <li>商品新增</li>
+    <li>商品修改</li>
+    <li>查询全部商品</li>
 </ul>
 <h3>公共资源微服务(com.supermarket.common)</h3>
 <ul>
-<li>公共资源微服务同时也是SpringCloud的Eureka模块</li>
-<li>提供了常用的JavaBean, ViewObject, 工具类</li>
+    <li>公共资源微服务同时也是SpringCloud的Eureka模块</li>
+    <li>提供了常用的JavaBean, ViewObject, 工具类</li>
 </ul>
 <h3>zuul网关(com.supermarket.gateway)</h3>
 <ul>
-<li>SpringCloud的zuul网关模块</li>
-<li>自动登录功能</li>
+    <li>SpringCloud的zuul网关模块</li>
+    <li>对敏感API调用进行后端鉴权</li>
 </ul>
 <h3>图片微服务(com.supermarket.image)</h3>
 <ul>
-<li>图片上传功能</li>
-<li>生成验证码功能</li>
-<li>清除验证码在redis中的缓存</li>
+    <li>图片上传功能</li>
+    <li>生成验证码功能</li>
+    <li>清除验证码在redis中的缓存</li>
 </ul>
 <h3>购物车微服务(com.supermarket.cart)</h3>
 <ul>
-<li>购物车查询</li>
-<li>购物车新增商品</li>
-<li>购物车删除商品</li>
-<li>购物车修改商品</li>
+    <li>购物车查询</li>
+    <li>购物车新增商品</li>
+    <li>购物车删除商品</li>
+    <li>购物车修改商品</li>
+    <li>购物车价格查询</li>
+</ul>
+<h3>订单微服务(com.supermarket.order)</h3>
+<ul>
+    <li>新增订单</li>
+    <li>删除订单</li>
+    <li>查询订单</li>
+</ul>
+<h3>检索微服务(com.supermarket.search)</h3>
+<ul>
+    <li>分页检索</li>
+    <li>新增商品</li>
+    <li>删除商品</li>
+    <li>建立索引</li>
+</ul>
+<h3>秒杀微服务(com.supermarket.instantbuy)</h3>
+<ul>
+    <li>全部秒杀商品查询</li>
+    <li>单个秒杀商品查询</li>
+    <li>发起秒杀</li>
 </ul>
 <h2>交流群</h2>
 点击链接加入群聊【Supermarket项目交流群】：<a href="https://jq.qq.com/?_wv=1027&k=wlpUy5jo">https://jq.qq.com/?_wv=1027&k=wlpUy5jo</a><br /> 
 <a href="https://jq.qq.com/?_wv=1027&k=wlpUy5jo"><img src="./img/交流群.png" alt="交流群二维码"/></a>
+<h2>部署教程</h2>
+<video src="http://8.129.225.215/video/supermarket部署视频.mp4" controls="controls" width="500px;height:500px;"></video>
+<ul>
+    <li><a href="https://blog.csdn.net/sjdjjd6466446/article/details/110005937" target="_blank">0.4.x版本博客教程</a>(感谢<a href="https://github.com/BlackPeachLawn" target="_blank">BlackPeachLawn</a>)</li>
+    <li><a href="http://8.129.225.215/" target="_blank">0.4.x版本视频教程</a>(感谢<a href="https://github.com/20427492" target="_blank">20427492</a>)</li>
+    <li><a href="./部署教程/ssm10月1号版本使用.txt" target="_blank">0.3.x版本文档教程</a>(感谢<a href="https://github.com/20427492" target="_blank">20427492</a>)</li>
+</ul>
 <h2>版本迭代</h2>
 <table>
     <tr>
@@ -274,17 +313,98 @@
         </td>
         <td>2020年11月19日</td>
     </tr>
+    <tr>
+        <td>0.4.7</td>
+        <td>
+            <ul>
+                <li>新增订单微服务：实现订单新增、订单查询、订单删除功能</li>
+                <li>完善购物车微服务：新增总价格查询功能</li>
+                <li>数据库迁移至服务器，并通过MyCat管理分库分表</li>
+                <li>每个数据分片通过双向主从实现MySQL高可用，并开启读写分离</li>
+            </ul>
+        </td>
+        <td>2020年11月24日</td>
+    </tr>
+    <tr>
+        <td>0.4.8</td>
+        <td>
+            <ul>
+                <li>新增检索微服务：分页检索、增加文档、删除文档、修改文档</li>
+                <li>完善商品微服务：查询全部商品</li>
+                <li>完善前端：进入后台权限校验</li>
+            </ul>
+        </td>
+        <td>2020年11月30日</td>
+    </tr>
+    <tr>
+        <td>0.4.9</td>
+        <td>
+            <ul>
+                <li>新增秒杀微服务：全部秒杀商品查询、单个秒杀商品查询、发起秒杀(尚未联调)</li>
+                <li>修改部分前端页面</li>
+            </ul>
+        </td>
+        <td>2020年12月6日</td>
+    </tr>
+    <tr>
+        <td>0.5</td>
+        <td>
+            <ul>
+                <li>完善秒杀微服务：修复若干bug</li>
+                <li>完善zuul网关：对敏感API调用进行后端鉴权</li>
+                <li>完善用户微服务：新增权限查询功能</li>
+            </ul>
+        </td>
+        <td>2020年12月9日</td>
+    </tr>
+    <tr>
+        <td>0.5.1</td>
+        <td>
+            <ul>
+                <li>完善秒杀微服务：修复发起秒杀功能中的线程安全问题</li>
+                <li>新增全系统架构图</li>
+            </ul>
+        </td>
+        <td>2020年12月10日</td>
+    </tr>
+    <tr>
+        <td>0.5.2</td>
+        <td>
+            <ul>
+                <li>完善秒杀微服务：修复发起秒杀功能中的线程安全问题</li>
+                <li>完善zuul网关：过滤器实现更细粒度鉴权</li>
+                <li>完善检索微服务：修复新增和编辑商品时无法同步到elasticsearch的Bug</li>
+            </ul>
+        </td>
+        <td>2020年12月11日</td>
+    </tr>
+    <tr>
+        <td>0.5.3</td>
+        <td>
+            <ul>
+                <li>微服务添加熔断器，避免单个故障导致集群崩溃</li>
+                <li>使用Feign替代Ribbon进行微服务间调用</li>
+                <li>完善检索微服务：修复微服务启动时创建索引失败的bug</li>
+                <li>新增log4j2日志框架支持</li>
+            </ul>
+        </td>
+        <td>2020年12月12日</td>
+    </tr>
 </table>
 
 <h2>配置情况</h2>
 <ul>
-    <li>JDK版本：OpenJDK11</li>
-    <li>nginx：1.19.1</li>
-    <li>maven: 3.6.3</li>
-    <li>MySql: 5.5.27</li>
-    <li>Redis: 3.2.11</li>
-    <li>开发环境：IntelliJ Idea 2020.1.4</li>
-    <li>框架：Springboot 2.2.5.RELEASE, SpringCloud Hoxton.SR3</li>
+    <li>JDK版本：<a href="http://openjdk.java.net/projects/jdk/11/" target="_blank">OpenJDK11</a></li>
+    <li><a href="http://nginx.org/en/download.html" target="_blank">nginx：1.19.1</a></li>
+    <li><a href="https://maven.apache.org/download.cgi" target="_blank">maven: 3.6.3</a></li>
+    <li><a href="https://downloads.mysql.com/archives/community/" target="_blank">MySql: 5.5.27</a></li>
+    <li><a href="http://download.redis.io/releases/" target="_blank">Redis: 3.2.11</a></li>
+    <li><a href="https://github.com/MyCATApache/Mycat-download/tree/master/1.5-RELEASE" target="_blank">MyCat: 1.5.1</a></li>
+    <li><a href="https://www.elastic.co/cn/downloads/past-releases/elasticsearch-6-8-6" target="_blank">ElasticSearch: 6.8.6</a></li>
+    <li><a href="https://github.com/medcl/elasticsearch-analysis-ik/releases/tag/v6.8.6" target="_blank">IK分词器: 6.8.6</a></li>
+    <li><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.7" target="_blank">RabbitMQ: 3.7.7</a></li>
+    <li>开发环境：<a href="https://www.jetbrains.com/idea/download/other.html" target="_blank">IntelliJ Idea 2020.1.4</a></li>
+    <li>框架：<a href="https://github.com/spring-projects/spring-boot/releases/tag/v2.2.5.RELEASE" target="_blank">Springboot 2.2.5.RELEASE</a>, <a href="https://spring.io/blog/2020/03/05/spring-cloud-hoxton-service-release-3-sr3-is-available" target="_blank">SpringCloud Hoxton.SR3</a></li>
     <li>
         hosts配置: <br />
         127.0.0.1 www.supermarket.com <br />
@@ -308,6 +428,10 @@
     <li>redis作为缓存使用时，建议捕获RedisConnectionFailureException异常，从而在redis崩掉的情况下能够直接访问数据库</li>
     <li>基于SpringCloud的Ribbon模块在微服务之间相互调用时，不经过zuul网关</li>
     <li>MySQL主从高可用时，如果因为错误数据导致挂接失败，需要先取消挂接(stop slave)，手动删除错误数据，再重新挂接(start slave)</li>
+    <li>MyCat1.5.1版本还不支持复杂SQL，比如update...select..., insert ...select...等</li>
+    <li>insert的时候加上列名是一个好习惯，因为MyCat1.5.1不支持省略列名的写法</li>
+    <li>直接使用RedisTemplate模板类，键和值会出现类似\xac\xed\x00\x05t\x00的东西，此时要么不去手动查看redis输出，要么换用StringRedisTemplate</li>
+    <li>用nginx也能做到外部调用内部api的拦截，只需要将提供给前端的api路径和提供给后端的api路径区分开。比如提供给前端的api路径是/manage/query，提供给后端的api是/backend/query，因为nginx拼接了"/manage"，所以自然找不到/backend/query</li>
 </ul>
 </body>
 </html>

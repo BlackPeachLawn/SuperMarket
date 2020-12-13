@@ -1,7 +1,10 @@
 package com.supermarket.cart.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.supermarket.common.domain.Cart;
+import com.supermarket.common.domain.OrderItem;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface CartService {
@@ -29,4 +32,13 @@ public interface CartService {
      * @param cart 购物车
      */
     public void delete(Cart cart);
+
+    /**
+     * 获取真实价钱，并进行数量校验
+     * @param productIds 商品id列表
+     * @param productNums 商品数量列表
+     * @param userId 用户id
+     * @return 总钱数
+     */
+    public Double getMoney(String productIds, String productNums, String userId) throws IOException;
 }

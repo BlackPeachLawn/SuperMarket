@@ -1,5 +1,6 @@
 package com.supermarket.cart.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.supermarket.cart.dao.CartDao;
 import com.supermarket.cart.exception.MsgException;
 import com.supermarket.common.domain.Cart;
@@ -7,8 +8,8 @@ import com.supermarket.common.domain.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -17,7 +18,10 @@ public class CartServiceImpl implements CartService {
     private CartDao cartDao = null;
 
     @Autowired
-    private RestTemplate restTemplate = null;
+    private ProductService productService = null;
+
+    @Autowired
+    private ObjectMapper mapper = null;
 
     @Override
     public List<Cart> queryCart(String userId) {
@@ -28,10 +32,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public void addCart(Cart cart) {
         String productId = cart.getProductId();
-        Product product = this.restTemplate.getForObject(
-                "http://product/manage/item/" + productId,
-                Product.class
-        );
+        Product product = this.productService.queryProduct(productId);
         if (product == null)
             throw new MsgException("商品不存在");
         // 暂存num，为了调用mybatis的sql模板
@@ -59,10 +60,7 @@ public class CartServiceImpl implements CartService {
     public void update(Cart cart) {
         this.cartDao.update(cart);
         String productId = cart.getProductId();
-        Product product = this.restTemplate.getForObject(
-                "http://product/manage/item/" + productId,
-                Product.class
-        );
+        Product product = this.productService.queryProduct(productId);
         if (product == null)
             throw new MsgException("商品不存在");
         if (cart.getNum() > product.getProductNum())
@@ -72,5 +70,29 @@ public class CartServiceImpl implements CartService {
     @Override
     public void delete(Cart cart) {
         this.cartDao.delete(cart);
+    }
+
+    @Override
+    public Double getMoney(String productIdss, String productNumss, String userId) throws IOException {
+        String[] productIds = this.mapper.readValue(productIdss, String[].class);
+        Integer[] productNums = this.mapper.readValue(productNumss, Integer[].class);
+        Double money = 0.0;
+        if (productIds.length != productNums.length)
+            throw new MsgException("传递参数有错");
+        for (int i = 0; i < productIds.length; i++) {
+            String productId = productIds[i];
+            Integer num = productNums[i];
+            Product product = this.productService.queryProduct(productId);
+            if (product == null || num == null)
+                throw new MsgException("商品查询有错");
+            if (num > product.getProductNum())
+                throw new MsgException("库存不足，库存"+product.getProductNum()+"件，购买"+num+"件");
+            List<Cart> carts = this.cartDao.selectCarts(
+                    null, userId, productId, null, null, null, null
+            );
+            Cart cart = carts.get(0);
+            money = money + num * cart.getProductPrice();
+        }
+        return money;
     }
 }
